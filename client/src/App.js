@@ -5,6 +5,7 @@ import rootReducer from './reducers';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { createStore, applyMiddleware, compose } from 'redux';
+import {setCurrentUser, logoutUser} from './actions/authActions'
 import './App.css';
 
 const composeEnhancers =
@@ -33,7 +34,7 @@ if (localStorage.jwtToken) {
     //logout the user
     store.dispatch(logoutUser());
     //Todo: clear current profile
-    store.dispatch(clearCurrentProfile());
+
     //Redirect to login
     window.location.href = '/login';
   }

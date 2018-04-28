@@ -2,9 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const users = require('./routes/api/users');
+const passport = require('passport');
+const keys = require('./config/keys');
+
 
 mongoose
-  .connect('mongodb://localhost/mern')
+  .connect(keys.MongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -14,7 +17,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
+//passport middleware
+app.use(passport.initialize());
+// passport config
+require('./config/passport.js')(passport)
 
 
 app.use('/api/users', users);
